@@ -63,7 +63,7 @@ export const different = {
 // redirected to /thanks. Until a real key is set, the forms will not deliver.
 export const forms = {
   endpoint: 'https://api.web3forms.com/submit',
-  accessKey: 'REPLACE_WITH_WEB3FORMS_KEY', // generate at web3forms.com using info@vsource.net
+  accessKey: 'f22786e7-1f38-41e9-8133-c2daa1c34361', // Web3Forms, delivers to info@vsource.net
   redirect: 'https://vsource.net/thanks',
 };
 
