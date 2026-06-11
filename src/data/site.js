@@ -12,7 +12,7 @@
 export const meta = {
   title: 'vsource · Dedicated offshore sourcing teams',
   description:
-    'vsource gives your recruiting function a dedicated offshore team that sources, screens and builds pipeline as an extension of your business. Not freelancers. Not software. A team that learns how you hire.',
+    'vsource gives your recruiting function a dedicated offshore team for sourcing, desktop research, data annotation and resume formatting, run as an extension of your business. Not freelancers. Not software. A team that learns how you hire.',
   domain: 'vsource.net',
 };
 
@@ -21,7 +21,7 @@ export const brand = { name: 'vsource' };
 export const hero = {
   kicker: 'Dedicated offshore sourcing teams',
   headline: ['Your sourcing team,', 'offshore,', 'built around you.'],
-  lede: 'vsource embeds a dedicated offshore team inside your recruiting function. Sourcing, screening and pipeline, run as one of your own. Not hourly freelancers. Not another tool. A team that learns how you hire.',
+  lede: 'vsource embeds a dedicated offshore team inside your recruiting function. Sourcing, research and pipeline support, run as one of your own. Not hourly freelancers. Not another tool. A team that learns how you hire.',
   ctaPrimary: { label: 'Build your team', href: '#contact' },
   ctaSecondary: { label: 'How it works', href: '#services' },
 };
@@ -32,16 +32,16 @@ export const problem = {
     'In-house sourcers are expensive and slow to hire, and hard to keep busy when demand dips.',
     'Freelancers and hourly platforms give you hands for a task, but no continuity. Every role starts from scratch.',
     'Traditional offshore shops push volume, not judgment, and never learn how you hire.',
-    'So your recruiters spend their days searching, instead of closing.',
+    'So your best recruiters are stuck searching, when they should be closing.',
   ],
 };
 
-// What the dedicated team runs for you.
+// What the dedicated team runs for you. Desk-based, no phone work.
 export const services = [
-  { n: '01', title: 'Talent sourcing', body: 'Deep, role-specific pipelines built every day, mapped to how you actually hire.' },
-  { n: '02', title: 'Screening & pre-qualification', body: 'Human judgment on fit and intent before a CV ever reaches your recruiters.' },
-  { n: '03', title: 'Talent mapping & market intelligence', body: 'Living maps of the market: skills, competitors and locations, ready before you need to hire.' },
-  { n: '04', title: 'Sourcing operations', body: 'Scheduling, data hygiene and the coordination that clogs a recruiter’s day, handled.' },
+  { n: '01', title: 'Talent sourcing', body: 'Deep, role-specific candidate pools and long lists, built every day and mapped to how you hire.' },
+  { n: '02', title: 'Desktop research', body: 'Market, company and talent research, including org and competitor mapping, done at the desk.' },
+  { n: '03', title: 'Data annotation', body: 'The human in the loop for AI: labelling, verification and quality, at scale.' },
+  { n: '04', title: 'Resume formatting', body: 'CVs reformatted and standardised to your template, with fast, consistent turnaround.' },
 ];
 
 export const different = {

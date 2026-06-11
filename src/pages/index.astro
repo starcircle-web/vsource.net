@@ -57,8 +57,8 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
     <div class="wrap">
       <div class="section-head reveal">
         <p class="kicker">What we run</p>
-        <h2 class="section-title">A team that owns your top of funnel</h2>
-        <p>One dedicated team, coordinated so you get pipeline and judgment, not a management problem.</p>
+        <h2 class="section-title">The desk work behind every hire</h2>
+        <p>One dedicated team handling the sourcing, research and back-office work that eats your recruiters’ time.</p>
       </div>
       <div class="svc-grid">
         {services.map((s, i) => (
@@ -120,17 +120,17 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
           <div class="calc-control">
             <span class="calc-label">Contract</span>
             <div class="seg" role="tablist">
-              <button type="button" class="seg-btn is-on" data-term="short">3 months</button>
-              <button type="button" class="seg-btn" data-term="long">12 months <em>save 10%</em></button>
+              <button type="button" class="seg-btn" data-term="short">3 months</button>
+              <button type="button" class="seg-btn is-on" data-term="long">12 months <em>save 10%</em></button>
             </div>
           </div>
 
           <div class="calc-out">
-            <div class="calc-big"><span id="calcMonthly">$9,600</span> <small>/ month</small></div>
+            <div class="calc-big"><span id="calcMonthly">$8,640</span> <small>/ month</small></div>
             <div class="calc-sub">
-              <span id="calcPerRes">$2,400</span> per resource
+              <span id="calcPerRes">$2,160</span> per resource
               <span class="calc-dot">·</span>
-              <span id="calcTotal">$28,800</span> over <span id="calcTerm">3 months</span>
+              <span id="calcTotal">$103,680</span> over <span id="calcTerm">12 months</span>
             </div>
           </div>
 
@@ -144,7 +144,7 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
           <input type="hidden" name="redirect" value={forms.redirect} />
           <input type="hidden" name="team_estimate" id="calcSummary" value="" />
           <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <p class="form-lead" id="calcReadout">A team of 4, 3 months, around $9,600/month.</p>
+          <p class="form-lead" id="calcReadout">A team of 4, 12 months, around $8,640/month.</p>
           <label>{contact.fields.nameLabel}<input type="text" name="name" required /></label>
           <label>{contact.fields.emailLabel}<input type="email" name="email" required /></label>
           <label>{contact.fields.noteLabel}<textarea name="message" rows="3"></textarea></label>
@@ -179,7 +179,7 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
         min:+d.min, max:+d.max, base:+d.base, step:+d.step, floor:+d.floor,
         short:+d.short, long:+d.long, disc:+d.disc, cur:d.cur,
       };
-      let team = +d.default, term = 'short';
+      let team = +d.default, term = 'long';
       const money = (n) => P.cur + Math.round(n).toLocaleString('en-US');
       const rate = (n) => Math.max(P.floor, P.base - (n - P.min) * P.step);
       const $ = (id) => document.getElementById(id);
