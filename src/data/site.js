@@ -95,8 +95,8 @@ export const pricing = {
 };
 
 export const nav = [
-  { label: 'The gap', href: '#problem' },
-  { label: 'What we run', href: '#services' },
+  { label: 'The challenge', href: '#problem' },
+  { label: 'What we do', href: '#services' },
   { label: 'Why vsource', href: '#different' },
   { label: 'Build your team', href: '#contact' },
 ];
