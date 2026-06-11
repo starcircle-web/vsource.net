@@ -29,10 +29,10 @@ export const hero = {
 export const problem = {
   title: 'The gap a dedicated team fills',
   points: [
-    'In-house sourcers are expensive and slow to hire, and hard to keep busy when demand dips.',
-    'Freelancers and hourly platforms give you hands for a task, but no continuity. Every role starts from scratch.',
-    'Traditional offshore shops push volume, not judgment, and never learn how you hire.',
-    'So your best recruiters are stuck searching, when they should be closing.',
+    'Hiring demand spikes and stalls. A permanent sourcing hire is a fixed cost against a variable need.',
+    'Good sourcers are expensive, slow to hire, and hard to keep busy when the pipeline goes quiet.',
+    'Your recruiters lose their days to sourcing, research and CV formatting, the work that keeps them off the phone.',
+    'And the market shifts faster than a stretched team can map it.',
   ],
 };
 
@@ -90,7 +90,8 @@ export const pricing = {
   shortMonths: 3,
   longMonths: 12,
   longDiscount: 0.10,
-  note: 'Indicative pricing. Final team shape and rate are confirmed on a short call. Teams larger than 15, let us talk.',
+  inhouseMonthly: 6500, // est. fully-loaded cost of an in-house sourcer / month (editable benchmark)
+  note: 'Indicative pricing. Saving is an estimate against a typical fully-loaded in-house sourcing hire. Final team shape and rate confirmed on a short call. Teams larger than 15, let us talk.',
 };
 
 export const nav = [

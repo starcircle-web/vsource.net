@@ -105,7 +105,7 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
              data-min={pricing.minTeam} data-max={pricing.maxTeam} data-default={pricing.defaultTeam}
              data-base={pricing.base} data-step={pricing.step} data-floor={pricing.floor}
              data-short={pricing.shortMonths} data-long={pricing.longMonths} data-disc={pricing.longDiscount}
-             data-cur={pricing.currency}>
+             data-inhouse={pricing.inhouseMonthly} data-cur={pricing.currency}>
           <p class="calc-eyebrow">Estimate your team</p>
 
           <div class="calc-control">
@@ -131,6 +131,10 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
               <span id="calcPerRes">$2,160</span> per resource
               <span class="calc-dot">·</span>
               <span id="calcTotal">$103,680</span> over <span id="calcTerm">12 months</span>
+            </div>
+            <div class="calc-save">
+              <span class="calc-save-pill">Save ~<span id="calcSavePct">67%</span></span>
+              <span class="calc-save-txt">about <span id="calcSaveMo">$17,360</span>/month vs hiring in-house</span>
             </div>
           </div>
 
@@ -177,7 +181,7 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
       const d = el.dataset;
       const P = {
         min:+d.min, max:+d.max, base:+d.base, step:+d.step, floor:+d.floor,
-        short:+d.short, long:+d.long, disc:+d.disc, cur:d.cur,
+        short:+d.short, long:+d.long, disc:+d.disc, inhouse:+d.inhouse, cur:d.cur,
       };
       let team = +d.default, term = 'long';
       const money = (n) => P.cur + Math.round(n).toLocaleString('en-US');
@@ -194,6 +198,11 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
         $('calcPerRes').textContent = money(perRes);
         $('calcTotal').textContent = money(monthly * months);
         $('calcTerm').textContent = months + ' months';
+        const inhouse = team * P.inhouse;
+        const saveMo = inhouse - monthly;
+        const savePct = Math.round((saveMo / inhouse) * 100);
+        $('calcSavePct').textContent = savePct + '%';
+        $('calcSaveMo').textContent = money(saveMo);
         const summary = `Team of ${team}, ${months} months, ~${money(monthly)}/month (${money(monthly * months)} total).`;
         $('calcReadout').textContent = summary;
         $('calcSummary').value = summary;
@@ -351,7 +360,14 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
   .calc-sub { margin-top: 0.6rem; color: var(--slate); font-size: 0.95rem; }
   .calc-sub span { font-weight: 700; color: var(--charcoal); }
   .calc-dot { color: var(--mute); margin: 0 0.2rem; }
-  .calc-note { font-size: 0.78rem; color: var(--mute); line-height: 1.45; }
+  .calc-save { display: flex; align-items: center; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; }
+  .calc-save-pill {
+    font-weight: 800; font-size: 0.82rem; color: #fff; background: var(--grad);
+    padding: 0.32em 0.7em; border-radius: 100px; white-space: nowrap;
+  }
+  .calc-save-txt { font-size: 0.86rem; color: var(--slate); }
+  .calc-save-txt span { font-weight: 700; color: var(--charcoal); }
+  .calc-note { font-size: 0.78rem; color: var(--mute); line-height: 1.45; margin-top: 0.2rem; }
 
   .form { display: grid; gap: 1rem; align-content: start; }
   .card-form { background: var(--paper-2); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.5rem, 3vw, 2.2rem); }
