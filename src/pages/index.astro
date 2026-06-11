@@ -134,7 +134,7 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
             </div>
             <div class="calc-save">
               <span class="calc-save-pill">Save ~<span id="calcSavePct">67%</span></span>
-              <span class="calc-save-txt">about <span id="calcSaveMo">$17,360</span>/month vs hiring in-house</span>
+              <span class="calc-save-txt">vs hiring in-house</span>
             </div>
           </div>
 
@@ -199,10 +199,8 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
         $('calcTotal').textContent = money(monthly * months);
         $('calcTerm').textContent = months + ' months';
         const inhouse = team * P.inhouse;
-        const saveMo = inhouse - monthly;
-        const savePct = Math.round((saveMo / inhouse) * 100);
+        const savePct = Math.round(((inhouse - monthly) / inhouse) * 100);
         $('calcSavePct').textContent = savePct + '%';
-        $('calcSaveMo').textContent = money(saveMo);
         const summary = `Team of ${team}, ${months} months, ~${money(monthly)}/month (${money(monthly * months)} total).`;
         $('calcReadout').textContent = summary;
         $('calcSummary').value = summary;
