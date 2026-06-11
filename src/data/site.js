@@ -27,7 +27,7 @@ export const hero = {
 };
 
 export const problem = {
-  title: 'The gap a dedicated team fills',
+  title: 'Sourcing demand your team can’t staff for',
   points: [
     'Hiring demand spikes and stalls. A permanent sourcing hire is a fixed cost against a variable need.',
     'Good sourcers are expensive, slow to hire, and hard to keep busy when the pipeline goes quiet.',
