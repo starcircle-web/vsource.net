@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import { meta, hero, problem, services, different, forms, contact, pricing, nav, footer } from '../data/site.js';
+// Split the address so it never appears literally in the served HTML (anti-harvest).
+const [emailUser, emailDomain] = contact.email.split('@');
 ---
 <Base title={meta.title} description={meta.description}>
   <!-- ── NAV ─────────────────────────────────────────────────────── -->
@@ -153,7 +155,7 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
           <label>{contact.fields.emailLabel}<input type="email" name="email" required /></label>
           <label>{contact.fields.noteLabel}<textarea name="message" rows="3"></textarea></label>
           <button type="submit" class="btn btn-primary">{contact.submit}<span class="arrow">→</span></button>
-          <a class="form-mail" href={`mailto:${contact.email}`}>or email {contact.email}</a>
+          <a class="form-mail js-email" data-u={emailUser} data-d={emailDomain} data-prefix="or email ">or email us</a>
         </form>
       </div>
     </div>
@@ -224,6 +226,13 @@ import { meta, hero, problem, services, different, forms, contact, pricing, nav,
       );
       render();
     })();
+
+    // Assemble obfuscated email links at runtime (defeats most harvesters).
+    document.querySelectorAll('.js-email').forEach((a) => {
+      const e = a.dataset.u + '@' + a.dataset.d;
+      a.setAttribute('href', 'mailto:' + e);
+      a.textContent = (a.dataset.prefix || '') + e;
+    });
   </script>
 </Base>
 

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { contact } from '../data/site.js';
+const [emailUser, emailDomain] = contact.email.split('@');
 ---
 <Base title="Thank you · vsource" description="Thanks for getting in touch with vsource.">
   <main class="thanks">
@@ -10,11 +11,18 @@ import { contact } from '../data/site.js';
       <h1 class="display thanks-head grad-text reveal" style="transition-delay:.1s">Thank you.</h1>
       <p class="thanks-lede reveal" style="transition-delay:.2s">
         We have your message and will be in touch shortly. In the meantime, you can
-        reach us any time at <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+        reach us any time at <a class="js-email" data-u={emailUser} data-d={emailDomain}>email us</a>.
       </p>
       <a href="/" class="btn btn-ghost reveal" style="transition-delay:.3s">Back to home</a>
     </div>
   </main>
+  <script is:inline>
+    document.querySelectorAll('.js-email').forEach((a) => {
+      const e = a.dataset.u + '@' + a.dataset.d;
+      a.setAttribute('href', 'mailto:' + e);
+      a.textContent = (a.dataset.prefix || '') + e;
+    });
+  </script>
 </Base>
 
 <style>
