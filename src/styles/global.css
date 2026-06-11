@@ -1,0 +1,130 @@
+/* ───────────────────────────────────────────────────────────────────────
+   vsource — warm light
+   Off-white paper · charcoal ink · yellow→orange→magenta funnel spectrum
+   Brand source: 14 platform/vsource/brand/vsource-brand-modern.md
+   ─────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --paper:    #FBFAF7;   /* canvas, warm off-white */
+  --paper-2:  #F4F1EA;   /* raised surface */
+  --surface:  #FFFFFF;   /* cards */
+  --line:     #E7E4DE;   /* hairlines */
+
+  --ink:      #2B2D2E;   /* primary text */
+  --charcoal: #545757;   /* headings / logotype colour */
+  --slate:    #6B7177;   /* secondary text */
+  --mute:     #9AA0A6;   /* tertiary */
+
+  --yellow:   #FFC107;
+  --orange:   #F47920;   /* primary accent */
+  --orange-deep:#EA5B1B;
+  --magenta:  #EC008C;
+
+  --grad: linear-gradient(105deg, #FFC107 0%, #F47920 50%, #EC008C 100%);
+
+  --maxw: 1200px;
+  --gut: clamp(1.25rem, 4vw, 3rem);
+
+  --font: 'Manrope', system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1rem);
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Flowing ribbon curves: the 2014 motif, faint, warm. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900' viewBox='0 0 1400 900' fill='none'%3E%3Cg stroke='%23F47920' stroke-width='1' fill='none' opacity='0.18'%3E%3Cpath d='M-50 220 C 300 120 520 360 760 250 C 1000 140 1180 300 1460 200'/%3E%3Cpath d='M-50 300 C 320 200 540 430 780 330 C 1020 230 1200 380 1460 290'/%3E%3Cpath d='M-50 690 C 300 600 560 800 820 700 C 1060 610 1220 740 1460 660'/%3E%3Cpath d='M-50 760 C 320 680 580 860 840 770 C 1080 690 1240 800 1460 730'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  -webkit-mask-image: radial-gradient(ellipse 120% 90% at 70% 10%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(ellipse 120% 90% at 70% 10%, #000 0%, transparent 72%);
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gut); position: relative; z-index: 1; }
+
+/* ── Type scale ───────────────────────────────────────────────── */
+.display {
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: var(--charcoal);
+}
+h2.section-title {
+  font-weight: 800;
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.032em;
+  color: var(--charcoal);
+}
+.kicker {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  padding: 0.85em 1.5em;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, background .25s, border-color .25s, color .25s;
+}
+.btn .arrow { transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+.btn:hover .arrow { transform: translateX(4px); }
+.btn-primary { background: var(--orange); color: #fff; box-shadow: 0 8px 22px -10px rgba(244,121,32,0.7); }
+.btn-primary:hover { background: var(--orange-deep); transform: translateY(-2px); box-shadow: 0 12px 26px -10px rgba(244,121,32,0.8); }
+.btn-ghost { border-color: var(--line); color: var(--charcoal); background: var(--surface); }
+.btn-ghost:hover { border-color: var(--charcoal); transform: translateY(-2px); }
+
+/* ── Sections ─────────────────────────────────────────────────── */
+section { position: relative; z-index: 1; padding-block: clamp(4.5rem, 9vw, 8rem); }
+.section-head { max-width: 46ch; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.section-head p { color: var(--slate); margin-top: 1rem; font-size: 1.12rem; }
+
+/* ── Reveal-on-load / scroll ──────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(22px); }
+.revealed .reveal, .reveal.in {
+  opacity: 1; transform: none;
+  transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; }
+  html { scroll-behavior: auto; }
+}

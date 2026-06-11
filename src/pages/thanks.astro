@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { contact } from '../data/site.js';
+---
+<Base title="Thank you · vsource" description="Thanks for getting in touch with vsource.">
+  <main class="thanks">
+    <div class="funnel" aria-hidden="true"></div>
+    <div class="wrap thanks-inner">
+      <p class="kicker reveal">Message received</p>
+      <h1 class="display thanks-head grad-text reveal" style="transition-delay:.1s">Thank you.</h1>
+      <p class="thanks-lede reveal" style="transition-delay:.2s">
+        We have your message and will be in touch shortly. In the meantime, you can
+        reach us any time at <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+      </p>
+      <a href="/" class="btn btn-ghost reveal" style="transition-delay:.3s">Back to home</a>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .thanks { min-height: 100vh; display: grid; place-items: center; overflow: hidden; position: relative; }
+  .thanks-inner { text-align: center; max-width: 46ch; }
+  .thanks-head { font-size: clamp(3rem, 2rem + 6vw, 6rem); margin: 1.2rem 0; }
+  .thanks-lede { color: var(--slate); font-size: 1.15rem; margin-bottom: 2.2rem; }
+  .thanks-lede a { color: var(--orange); border-bottom: 1px solid transparent; transition: border-color .2s; }
+  .thanks-lede a:hover { border-color: var(--orange); }
+  .funnel {
+    position: absolute; top: -8%; left: 50%; transform: translateX(-50%);
+    width: clamp(320px, 50vw, 640px); aspect-ratio: 1; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(255,193,7,0.45), transparent 42%),
+      radial-gradient(circle at 56% 52%, rgba(244,121,32,0.38), transparent 46%),
+      radial-gradient(circle at 48% 74%, rgba(236,0,140,0.32), transparent 48%);
+    filter: blur(36px); opacity: 0.7;
+  }
+</style>
