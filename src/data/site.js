@@ -76,12 +76,21 @@ export const contact = {
   email: 'info@vsource.net',
 };
 
-export const careers = {
-  title: 'Join the vsource team',
-  lede: 'We build careers for sourcers and researchers on dedicated client teams, not gig work. If that is you, tell us what you do.',
-  subject: 'New vsource application (Join the team)',
-  fields: { nameLabel: 'Your name', emailLabel: 'Email', noteLabel: 'What do you do?' },
-  submit: 'Apply to join',
+// ── Team calculator ────────────────────────────────────────────────────
+// rate per resource = max(floor, base - (team - minTeam) * step).
+// 12-month term takes longDiscount off the monthly. All indicative.
+export const pricing = {
+  currency: '$',
+  minTeam: 2,
+  maxTeam: 15,
+  defaultTeam: 4,
+  base: 2500,       // $/resource/month at the minimum team size
+  step: 50,         // reduction in per-resource rate per extra resource
+  floor: 1900,      // per-resource floor
+  shortMonths: 3,
+  longMonths: 12,
+  longDiscount: 0.10,
+  note: 'Indicative pricing. Final team shape and rate are confirmed on a short call. Teams larger than 15, let us talk.',
 };
 
 export const nav = [

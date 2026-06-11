@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { meta, hero, problem, services, different, forms, careers, contact, nav, footer } from '../data/site.js';
+import { meta, hero, problem, services, different, forms, contact, pricing, nav, footer } from '../data/site.js';
 ---
 <Base title={meta.title} description={meta.description}>
   <!-- ── NAV ─────────────────────────────────────────────────────── -->
@@ -90,48 +90,68 @@ import { meta, hero, problem, services, different, forms, careers, contact, nav,
     </div>
   </section>
 
-  <!-- ── CONTACT (clients) ───────────────────────────────────────── -->
-  <section id="contact" class="cta-band contact">
-    <div class="wrap cta-inner">
-      <div class="cta-copy reveal">
+  <!-- ── CONTACT + CALCULATOR (clients) ──────────────────────────── -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="section-head reveal">
         <p class="kicker">For recruiting teams</p>
         <h2 class="section-title">{contact.title}</h2>
         <p>{contact.lede}</p>
-        <div class="contact-meta">
-          <a href={`mailto:${contact.email}`}>{contact.email}</a>
-        </div>
       </div>
-      <form class="form reveal" action={forms.endpoint} method="POST">
-        <input type="hidden" name="access_key" value={forms.accessKey} />
-        <input type="hidden" name="subject" value={contact.subject} />
-        <input type="hidden" name="redirect" value={forms.redirect} />
-        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <label>{contact.fields.nameLabel}<input type="text" name="name" required /></label>
-        <label>{contact.fields.emailLabel}<input type="email" name="email" required /></label>
-        <label>{contact.fields.noteLabel}<textarea name="message" rows="3"></textarea></label>
-        <button type="submit" class="btn btn-primary">{contact.submit}<span class="arrow">→</span></button>
-      </form>
-    </div>
-  </section>
 
-  <!-- ── CAREERS ─────────────────────────────────────────────────── -->
-  <section id="careers" class="cta-band careers">
-    <div class="wrap cta-inner">
-      <div class="cta-copy reveal">
-        <p class="kicker">For sourcers</p>
-        <h2 class="section-title">{careers.title}</h2>
-        <p>{careers.lede}</p>
+      <div class="build-grid">
+        <!-- Calculator -->
+        <div class="calc reveal"
+             data-min={pricing.minTeam} data-max={pricing.maxTeam} data-default={pricing.defaultTeam}
+             data-base={pricing.base} data-step={pricing.step} data-floor={pricing.floor}
+             data-short={pricing.shortMonths} data-long={pricing.longMonths} data-disc={pricing.longDiscount}
+             data-cur={pricing.currency}>
+          <p class="calc-eyebrow">Estimate your team</p>
+
+          <div class="calc-control">
+            <span class="calc-label">Team size</span>
+            <div class="stepper">
+              <button type="button" class="step" data-step="-1" aria-label="Fewer">−</button>
+              <span class="stepper-val"><output id="calcTeam">{pricing.defaultTeam}</output><small>resources</small></span>
+              <button type="button" class="step" data-step="1" aria-label="More">+</button>
+            </div>
+          </div>
+
+          <div class="calc-control">
+            <span class="calc-label">Contract</span>
+            <div class="seg" role="tablist">
+              <button type="button" class="seg-btn is-on" data-term="short">3 months</button>
+              <button type="button" class="seg-btn" data-term="long">12 months <em>save 10%</em></button>
+            </div>
+          </div>
+
+          <div class="calc-out">
+            <div class="calc-big"><span id="calcMonthly">$9,600</span> <small>/ month</small></div>
+            <div class="calc-sub">
+              <span id="calcPerRes">$2,400</span> per resource
+              <span class="calc-dot">·</span>
+              <span id="calcTotal">$28,800</span> over <span id="calcTerm">3 months</span>
+            </div>
+          </div>
+
+          <p class="calc-note">{pricing.note}</p>
+        </div>
+
+        <!-- Enquiry form -->
+        <form class="form card-form reveal" action={forms.endpoint} method="POST">
+          <input type="hidden" name="access_key" value={forms.accessKey} />
+          <input type="hidden" name="subject" value={contact.subject} />
+          <input type="hidden" name="redirect" value={forms.redirect} />
+          <input type="hidden" name="team_estimate" id="calcSummary" value="" />
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <p class="form-lead" id="calcReadout">A team of 4, 3 months, around $9,600/month.</p>
+          <label>{contact.fields.nameLabel}<input type="text" name="name" required /></label>
+          <label>{contact.fields.emailLabel}<input type="email" name="email" required /></label>
+          <label>{contact.fields.noteLabel}<textarea name="message" rows="3"></textarea></label>
+          <button type="submit" class="btn btn-primary">{contact.submit}<span class="arrow">→</span></button>
+          <a class="form-mail" href={`mailto:${contact.email}`}>or email {contact.email}</a>
+        </form>
       </div>
-      <form class="form reveal" action={forms.endpoint} method="POST">
-        <input type="hidden" name="access_key" value={forms.accessKey} />
-        <input type="hidden" name="subject" value={careers.subject} />
-        <input type="hidden" name="redirect" value={forms.redirect} />
-        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <label>{careers.fields.nameLabel}<input type="text" name="name" required /></label>
-        <label>{careers.fields.emailLabel}<input type="email" name="email" required /></label>
-        <label>{careers.fields.noteLabel}<textarea name="message" rows="3"></textarea></label>
-        <button type="submit" class="btn btn-ghost">{careers.submit}<span class="arrow">→</span></button>
-      </form>
     </div>
   </section>
 
@@ -149,6 +169,55 @@ import { meta, hero, problem, services, different, forms, careers, contact, nav,
       <p class="footer-copy">© {footer.legal} {new Date().getFullYear()}. All rights reserved.</p>
     </div>
   </footer>
+
+  <script is:inline>
+    (() => {
+      const el = document.querySelector('.calc');
+      if (!el) return;
+      const d = el.dataset;
+      const P = {
+        min:+d.min, max:+d.max, base:+d.base, step:+d.step, floor:+d.floor,
+        short:+d.short, long:+d.long, disc:+d.disc, cur:d.cur,
+      };
+      let team = +d.default, term = 'short';
+      const money = (n) => P.cur + Math.round(n).toLocaleString('en-US');
+      const rate = (n) => Math.max(P.floor, P.base - (n - P.min) * P.step);
+      const $ = (id) => document.getElementById(id);
+
+      function render() {
+        const months = term === 'long' ? P.long : P.short;
+        const baseMonthly = team * rate(team);
+        const monthly = term === 'long' ? baseMonthly * (1 - P.disc) : baseMonthly;
+        const perRes = monthly / team;
+        $('calcTeam').textContent = team;
+        $('calcMonthly').textContent = money(monthly);
+        $('calcPerRes').textContent = money(perRes);
+        $('calcTotal').textContent = money(monthly * months);
+        $('calcTerm').textContent = months + ' months';
+        const summary = `Team of ${team}, ${months} months, ~${money(monthly)}/month (${money(monthly * months)} total).`;
+        $('calcReadout').textContent = summary;
+        $('calcSummary').value = summary;
+        el.querySelectorAll('.step').forEach((b) => {
+          const dir = +b.dataset.step;
+          b.disabled = (dir < 0 && team <= P.min) || (dir > 0 && team >= P.max);
+        });
+      }
+      el.querySelectorAll('.step').forEach((b) =>
+        b.addEventListener('click', () => {
+          team = Math.min(P.max, Math.max(P.min, team + (+b.dataset.step)));
+          render();
+        })
+      );
+      el.querySelectorAll('.seg-btn').forEach((b) =>
+        b.addEventListener('click', () => {
+          term = b.dataset.term;
+          el.querySelectorAll('.seg-btn').forEach((x) => x.classList.toggle('is-on', x === b));
+          render();
+        })
+      );
+      render();
+    })();
+  </script>
 </Base>
 
 <style>
@@ -239,14 +308,54 @@ import { meta, hero, problem, services, different, forms, careers, contact, nav,
   .diff-row p { color: var(--slate); margin-top: 0.35rem; }
   @media (max-width: 800px) { .diff-inner { grid-template-columns: 1fr; } }
 
-  /* ── CTA BANDS (contact / careers) ─────────────────────── */
-  .cta-band { border-top: 1px solid var(--line); }
-  .cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
-  .cta-copy p { color: var(--slate); margin-top: 1rem; max-width: 42ch; }
-  .contact-meta { display: flex; gap: 1.5rem; margin-top: 1.6rem; }
-  .contact-meta a { font-weight: 700; font-size: 0.95rem; color: var(--orange); border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color .2s; }
-  .contact-meta a:hover { border-color: var(--orange); }
-  .form { display: grid; gap: 1rem; }
+  /* ── CONTACT + CALCULATOR ──────────────────────────────── */
+  .contact { border-top: 1px solid var(--line); }
+  .build-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(1.5rem, 4vw, 2.4rem); align-items: stretch; }
+  @media (max-width: 820px) { .build-grid { grid-template-columns: 1fr; } }
+
+  .calc {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+    padding: clamp(1.5rem, 3vw, 2.2rem); display: flex; flex-direction: column; gap: 1.4rem;
+    box-shadow: 0 22px 50px -34px rgba(43,45,46,0.4);
+  }
+  .calc-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--slate); }
+  .calc-control { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .calc-label { font-weight: 700; color: var(--charcoal); font-size: 1.02rem; }
+
+  .stepper { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .step {
+    width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
+    background: var(--paper); color: var(--charcoal); font-size: 1.3rem; line-height: 1; font-weight: 700;
+    cursor: pointer; transition: border-color .2s, color .2s, transform .15s;
+  }
+  .step:hover:not(:disabled) { border-color: var(--orange); color: var(--orange); transform: translateY(-1px); }
+  .step:disabled { opacity: 0.35; cursor: not-allowed; }
+  .stepper-val { min-width: 4.6rem; text-align: center; display: grid; gap: 1px; }
+  .stepper-val output { font-weight: 800; font-size: 1.7rem; color: var(--charcoal); line-height: 1; }
+  .stepper-val small { font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
+
+  .seg { display: inline-flex; background: var(--paper); border: 1px solid var(--line); border-radius: 100px; padding: 4px; }
+  .seg-btn {
+    border: none; background: transparent; cursor: pointer; border-radius: 100px;
+    padding: 0.5em 0.95em; font-family: var(--font); font-weight: 700; font-size: 0.85rem; color: var(--slate);
+    display: inline-flex; align-items: center; gap: 0.4em; transition: background .2s, color .2s;
+  }
+  .seg-btn em { font-style: normal; font-size: 0.7rem; font-weight: 700; color: var(--orange); }
+  .seg-btn.is-on { background: var(--charcoal); color: #fff; }
+  .seg-btn.is-on em { color: var(--yellow); }
+
+  .calc-out { border-top: 1px solid var(--line); padding-top: 1.2rem; margin-top: auto; }
+  .calc-big { font-weight: 800; font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3rem); letter-spacing: -0.03em; color: var(--charcoal); line-height: 1; }
+  .calc-big span { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .calc-big small { font-size: 1rem; font-weight: 600; color: var(--slate); letter-spacing: 0; }
+  .calc-sub { margin-top: 0.6rem; color: var(--slate); font-size: 0.95rem; }
+  .calc-sub span { font-weight: 700; color: var(--charcoal); }
+  .calc-dot { color: var(--mute); margin: 0 0.2rem; }
+  .calc-note { font-size: 0.78rem; color: var(--mute); line-height: 1.45; }
+
+  .form { display: grid; gap: 1rem; align-content: start; }
+  .card-form { background: var(--paper-2); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.5rem, 3vw, 2.2rem); }
+  .form-lead { font-weight: 700; color: var(--charcoal); font-size: 1rem; margin-bottom: 0.2rem; }
   .form label { display: grid; gap: 0.45rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate); }
   .form input, .form textarea {
     font-family: var(--font); font-size: 1rem; color: var(--ink);
@@ -255,9 +364,9 @@ import { meta, hero, problem, services, different, forms, careers, contact, nav,
   }
   .form input:focus, .form textarea:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(244,121,32,0.12); }
   .form .btn { justify-self: start; margin-top: 0.3rem; }
+  .form-mail { font-size: 0.85rem; color: var(--slate); }
+  .form-mail:hover { color: var(--orange); }
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-  .careers { background: var(--paper-2); }
-  @media (max-width: 760px) { .cta-inner { grid-template-columns: 1fr; } }
 
   /* ── FOOTER ────────────────────────────────────────────── */
   .footer { border-top: 1px solid var(--line); padding-block: 3rem; }
