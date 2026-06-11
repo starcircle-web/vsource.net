@@ -27,12 +27,11 @@ export const hero = {
 };
 
 export const problem = {
-  title: 'Sourcing demand your team can’t staff for',
+  title: 'More sourcing than your team can cover',
   points: [
     'Hiring demand spikes and stalls. A permanent sourcing hire is a fixed cost against a variable need.',
     'Good sourcers are expensive, slow to hire, and hard to keep busy when the pipeline goes quiet.',
     'Your recruiters lose their days to sourcing, research and CV formatting, the work that keeps them off the phone.',
-    'And the market shifts faster than a stretched team can map it.',
   ],
 };
 
@@ -45,13 +44,14 @@ export const services = [
 ];
 
 export const different = {
-  title: 'A team, not a transaction',
+  title: 'Like having your own sourcing team',
   points: [
-    { title: 'Dedicated, not pooled', body: 'The same team every day, learning your roles, your tone and your bar. Continuity, not a queue.' },
-    { title: 'A team, not a freelancer', body: 'Managed, trained and coached as one unit. You get output and accountability, not a person to manage.' },
-    { title: 'People-led, not a platform', body: 'Real sourcers making judgment calls. Technology serves the team, it does not replace it.' },
-    { title: 'Offshore economics', body: 'Senior-quality sourcing at a cost structure that in-house hiring cannot match.' },
-    { title: 'Scales with demand', body: 'Add capacity for a hiring surge, dial it back when it is quiet. No permanent headcount risk.' },
+    { title: 'You stay in control', body: 'You direct the team day to day and set the priorities. It is your sourcing operation, run by us.' },
+    { title: 'An extension of your team', body: 'The team learns how you work and operates as part of your own, in your tools and to your standards.' },
+    { title: 'Experienced sourcers', body: 'People who know how to source and make the right judgment calls on every search.' },
+    { title: 'Up and running fast', body: 'A team in place and productive in days, with no long ramp or hiring cycle to wait through.' },
+    { title: 'Lower cost than hiring in', body: 'Senior sourcing skill at a fraction of the cost of a permanent in-house hire.' },
+    { title: 'Scales with demand', body: 'Add capacity for a hiring surge and dial it back when it is quiet, with no permanent headcount risk.' },
   ],
 };
 
