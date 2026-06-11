@@ -7,7 +7,8 @@ import { meta, hero, problem, services, different, forms, careers, contact, nav,
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="#top" class="brand" aria-label="vsource home">
-        <img src="/vsource-logo.png" alt="vsource" height="30" />
+        <img src="/vsource-mark.svg" alt="" height="34" class="brand-mark" />
+        <span class="wordmark">vsource</span>
       </a>
       <nav class="nav-links">
         {nav.map((n) => <a href={n.href}>{n.label}</a>)}
@@ -137,7 +138,10 @@ import { meta, hero, problem, services, different, forms, careers, contact, nav,
   <!-- ── FOOTER ──────────────────────────────────────────────────── -->
   <footer class="footer">
     <div class="wrap footer-inner">
-      <img src="/vsource-logo.png" alt="vsource" height="26" class="footer-mark" />
+      <a href="#top" class="brand footer-brand" aria-label="vsource home">
+        <img src="/vsource-mark.svg" alt="" height="30" class="brand-mark" />
+        <span class="wordmark">vsource</span>
+      </a>
       <div class="footer-legal">
         <p>{footer.tagline}</p>
         <p>{footer.address}</p>
@@ -156,7 +160,12 @@ import { meta, hero, problem, services, different, forms, careers, contact, nav,
     border-bottom: 1px solid var(--line);
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 74px; }
-  .brand img { display: block; }
+  .brand { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .brand-mark { display: block; }
+  .wordmark {
+    font-weight: 800; font-size: 1.6rem; letter-spacing: -0.03em;
+    color: var(--charcoal); line-height: 1;
+  }
   .nav-links { display: flex; gap: 2rem; }
   .nav-links a {
     font-size: 0.92rem; color: var(--slate); font-weight: 600;
@@ -253,7 +262,7 @@ import { meta, hero, problem, services, different, forms, careers, contact, nav,
   /* ── FOOTER ────────────────────────────────────────────── */
   .footer { border-top: 1px solid var(--line); padding-block: 3rem; }
   .footer-inner { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; align-items: center; justify-content: space-between; }
-  .footer-mark { opacity: 0.92; }
+  .footer-brand .wordmark { font-size: 1.4rem; }
   .footer-legal p { font-size: 0.85rem; color: var(--mute); }
   .footer-copy { font-size: 0.75rem; color: var(--mute); letter-spacing: 0.02em; }
 </style>
