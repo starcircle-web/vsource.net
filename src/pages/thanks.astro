@@ -22,6 +22,10 @@ const [emailUser, emailDomain] = contact.email.split('@');
       a.setAttribute('href', 'mailto:' + e);
       a.textContent = (a.dataset.prefix || '') + e;
     });
+    // Google Ads conversion: reaching /thanks means a lead form was submitted.
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', { send_to: 'AW-18232411564/T4CaCOzqwr0cEKyL8vVD' });
+    }
   </script>
 </Base>
 
