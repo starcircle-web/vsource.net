@@ -5,18 +5,14 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) — loads once, configures Google Ads + GA4 -->
-    <!-- GA4_MEASUREMENT_ID: paste the real G-XXXXXXXX below once the GA4 property is created in Google Analytics. -->
-    <!-- Until then, the GA4 config call is commented out so the AW tag is unaffected. -->
+    <!-- Google tag (gtag.js) - single library load for Google Ads and GA4 -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=AW-18232411564"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-18232411564');
-      // GA4 — uncomment and replace the placeholder once the property exists:
-      // var GA4_ID = 'G-XXXXXXXXXX'; // TODO: replace with real vsource GA4 Measurement ID
-      // gtag('config', GA4_ID);
+      gtag('config', 'G-SFCR21LSME');
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
