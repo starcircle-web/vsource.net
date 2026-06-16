@@ -144,11 +144,18 @@ const [emailUser, emailDomain] = contact.email.split('@');
         </div>
 
         <!-- Enquiry form -->
-        <form class="form card-form reveal" action={forms.endpoint} method="POST">
+        <form class="form card-form reveal" action={forms.endpoint} method="POST" id="contactForm">
           <input type="hidden" name="access_key" value={forms.accessKey} />
           <input type="hidden" name="subject" value={contact.subject} />
           <input type="hidden" name="redirect" value={forms.redirect} />
           <input type="hidden" name="team_estimate" id="calcSummary" value="" />
+          <!-- UTM attribution fields: populated at submit time from localStorage -->
+          <input type="hidden" name="utm_source" id="f_utm_source" value="" />
+          <input type="hidden" name="utm_medium" id="f_utm_medium" value="" />
+          <input type="hidden" name="utm_campaign" id="f_utm_campaign" value="" />
+          <input type="hidden" name="utm_term" id="f_utm_term" value="" />
+          <input type="hidden" name="utm_content" id="f_utm_content" value="" />
+          <input type="hidden" name="gclid" id="f_gclid" value="" />
           <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <p class="form-lead" id="calcReadout">A team of 4, 12 months, around $8,640/month.</p>
           <label>{contact.fields.nameLabel}<input type="text" name="name" required /></label>
@@ -233,6 +240,24 @@ const [emailUser, emailDomain] = contact.email.split('@');
       a.setAttribute('href', 'mailto:' + e);
       a.textContent = (a.dataset.prefix || '') + e;
     });
+
+    // UTM injection: on submit, read stored attribution values from localStorage
+    // and fill the hidden fields. Fields left empty (not removed) when absent so
+    // Web3Forms receives a clean named field regardless — this avoids breaking the
+    // form field order and keeps the lead email consistent.
+    (function () {
+      var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'];
+      var form = document.getElementById('contactForm');
+      if (!form) return;
+      form.addEventListener('submit', function () {
+        UTM_KEYS.forEach(function (k) {
+          var field = document.getElementById('f_' + k);
+          if (field) {
+            field.value = localStorage.getItem('vs_' + k) || '';
+          }
+        });
+      });
+    })();
   </script>
 </Base>
 

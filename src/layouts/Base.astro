@@ -5,13 +5,18 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) — loads once, configures Google Ads + GA4 -->
+    <!-- GA4_MEASUREMENT_ID: paste the real G-XXXXXXXX below once the GA4 property is created in Google Analytics. -->
+    <!-- Until then, the GA4 config call is commented out so the AW tag is unaffected. -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=AW-18232411564"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-18232411564');
+      // GA4 — uncomment and replace the placeholder once the property exists:
+      // var GA4_ID = 'G-XXXXXXXXXX'; // TODO: replace with real vsource GA4 Measurement ID
+      // gtag('config', GA4_ID);
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,6 +46,27 @@ const { title, description } = Astro.props;
         }
       }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
       document.querySelectorAll('section .reveal').forEach((el) => io.observe(el));
+
+      // UTM + gclid capture and persistence.
+      // Strategy: first-touch within a browser session. Values written to localStorage
+      // on the first page view that carries UTM/gclid params; they are NOT overwritten
+      // on subsequent pages within the same session so the original acquisition source
+      // is preserved for the form submission. A new browser session (localStorage clear
+      // or private window) starts fresh, which is the expected behaviour for first-touch.
+      (function () {
+        var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'];
+        var params = new URLSearchParams(window.location.search);
+        // Only write to storage if at least one attribution param is present in the URL.
+        var hasAttribution = UTM_KEYS.some(function (k) { return params.get(k); });
+        if (hasAttribution) {
+          UTM_KEYS.forEach(function (k) {
+            var v = params.get(k);
+            if (v) {
+              localStorage.setItem('vs_' + k, v);
+            }
+          });
+        }
+      })();
     </script>
   </body>
 </html>
