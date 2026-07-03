@@ -84,9 +84,9 @@ export const pricing = {
   minTeam: 2,
   maxTeam: 15,
   defaultTeam: 4,
-  base: 2500,       // $/resource/month at the minimum team size
-  step: 50,         // reduction in per-resource rate per extra resource
-  floor: 1900,      // per-resource floor
+  base: 2750,       // $/resource/month at the minimum team size
+  step: 55,         // reduction in per-resource rate per extra resource
+  floor: 2090,      // per-resource floor
   shortMonths: 3,
   longMonths: 12,
   longDiscount: 0.10,
